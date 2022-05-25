@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import trackit from "../assets/imgs/TrackIt.png"
+import trackit from "./../assets/TrackIt.png"
 import UserContext from "./Context/UserContext";
 import { useContext } from "react";
 
@@ -7,7 +7,7 @@ export default function Header() {
     const { user } = useContext(UserContext)
     return (
         <Style>
-            <img src={trackit} />
+            <img src={trackit}/>
             <img id="profile" src={user.image} />
         </Style>
     )
@@ -28,7 +28,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 
 img{
     width: 97px;
-    height: 49px;
+    height: 40px;
     margin: 15px;
 }
 #profile{

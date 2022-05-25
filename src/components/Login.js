@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "react-router-dom"
 
-import logo from "../assets/imgs/logo.png"
+import logo from "./../assets/imgs/logo.png"
 import Container from "./styledComponents/Container"
 
 import UserContext from "./Context/UserContext"
 import { useContext, useEffect, useState } from "react"
 import axios from "axios"
+import Loading from "./Loading"
 
 
 export default function Login(){
@@ -28,9 +29,10 @@ export default function Login(){
             console.log("dtat ",data)
             console.log("sou do contexto",user)
             navigate("/today")
-        }).catch(err=>{console.log("deu erro", err.response)})
+        }).catch(err=>{console.log("deu erro", err.response); alert(err.response.data.message)})
         }
     },[disabled])
+
     function login(event){
         event.preventDefault();
         setDisabled(true)
@@ -40,7 +42,7 @@ export default function Login(){
             <img src={logo}/>
             <input type="email" placeholder="Email" value={email} onChange={e=> setEmail(e.target.value)} disabled={disabled} ></input>
             <input type="password" placeholder="Senha" value={password} onChange={e=>setPassword(e.target.value)} disabled={disabled} ></input>
-            <button onClick={login} > {disabled?"carregando":"entrar"}</button>
+            <button onClick={login} > {disabled?<Loading/> :"entrar"}</button>
             <Link to={"/signin"} ><span>Não tem conta? Cadastre-se</span></Link>
         </Container>
     )

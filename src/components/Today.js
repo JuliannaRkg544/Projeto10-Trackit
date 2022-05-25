@@ -2,14 +2,28 @@ import Header from "./Header";
 import UserContext from "./Context/UserContext";
 import { useContext } from "react";
 import styled from "styled-components"
+import dayjs from "dayjs";
+import "dayjs/locale/pt-br"
+import Footer from "./Footer";
 
-export default function Today(){
-    const {user} = useContext(UserContext)
-    return(
-        <Style>
+export default function Today() {
+    const { user } = useContext(UserContext)
+    return (
+        <>
             <Header />
-             <p>Meus Hábitos</p>
-        </Style>
+            <Style>
+                <Top>
+                    <p> {dayjs().locale('PT-BR').format('dddd, DD/MM')} </p>
+                </Top>
+                <HabitCard>
+                    <CheckMark></CheckMark>
+                </HabitCard>
+                <HabitCard>
+                    <CheckMark></CheckMark>
+                </HabitCard>
+            </Style>
+           <Footer/>
+        </>
     )
 }
 
@@ -18,8 +32,9 @@ margin-top: 90px;
 margin-bottom: 70px;
 display:flex;
 justify-content: center;
-align-items: start;
 flex-direction: column;
+
+
 p{
     color: #126BA5;
     font-size: 22.98px;
@@ -33,7 +48,9 @@ p label{
 const Top = styled.div`
 display: flex;
 flex-direction: column;
-margin-left: 10px;
+align-items: flex-start;
+justify-content: flex-start;
+margin: 20px 10px;
 span{
     color: #bababa;
     font-size: 18px;
@@ -44,16 +61,15 @@ p.green {
   }
 `
 const HabitCard = styled.div`
-  Height: 94px;
-  width: 340px;
+  height: 94px;
+  min-width: 340px;
   border-radius: 5px;
+  margin: 5px 10px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   background-color: #fff;
   padding: 10px;
-  margin: 10px;
-  margin-top: 20px;
   
 p{
     color: #666666;
