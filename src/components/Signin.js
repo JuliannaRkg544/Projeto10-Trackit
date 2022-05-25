@@ -36,7 +36,7 @@ export default function Signin() {
                 alert("humm, algo está errado")
                 setDisabled(false)
             })
-        }},[])
+        }},[disabled])
     
     
     function signin(event){
