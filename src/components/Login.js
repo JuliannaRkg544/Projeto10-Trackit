@@ -21,17 +21,25 @@ export default function Login(){
         password: password
     }
 
-    //localStorage.setItem(user)
-    useEffect(()=>{
+    //l
+    
         if(disabled){
             axios.post(URL_POST,body).then(response => {
                 const {data} = response;
                 setUser(data);
                 console.log("data ",data)
+                localStorage.setItem("foto",data.image)
+                localStorage.setItem("token",data.token)
             navigate("/today")
         }).catch(err=>{console.log("deu erro", err.response); alert(err.response.data.message)})
         }
-    },[disabled])
+
+    //    useEffect(()=>{
+    //        if(localStorage.getItem("foto")){
+    //      navigate("/today");
+    //  }
+
+    // })            
 
     function login(event){
         event.preventDefault();

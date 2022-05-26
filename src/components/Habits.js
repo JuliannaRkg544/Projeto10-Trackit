@@ -13,10 +13,12 @@ export default function Habits() {
     const [addHabit, setAddHabbit] = useState(false)
     const {user} = useContext(UserContext)
 
+    const token = localStorage.getItem("token")
+
     useEffect(()=>{
         const config = {
             headers: {
-                Authorization: `Bearer ${user.token}`,
+                Authorization: `Bearer ${token}`,
             },
         };
         const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"

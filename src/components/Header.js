@@ -4,12 +4,13 @@ import UserContext from "./Context/UserContext";
 import { useContext } from "react";
 
 export default function Header() {
+    const foto = localStorage.getItem("foto")
     const { user } = useContext(UserContext)
     console.log("imagem",user.image)
     return (
         <Style>
             <img src={trackit}/>
-            <img id="profile" src={user.image} />
+            <img id="profile" src={foto} />
         </Style>
     )
 }
