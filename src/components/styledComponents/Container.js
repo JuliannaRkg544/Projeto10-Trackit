@@ -31,6 +31,9 @@ button{
     border: none;
     margin-bottom: 25px;
 }
+button:disabled {
+    background-color: ${props => props.disabled ? "#f2f2f2" : "#52B6FF"};
+  }
 img{
   width: 180px;
   height: 180px;
@@ -42,5 +45,8 @@ span{
 a{
     color: #52B6FF;
 }
+input:disabled {
+    background-color: ${props => props.disabled ? "#f2f2f2" : "#FFF"};
+  }
 
 `

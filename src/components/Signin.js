@@ -16,7 +16,7 @@ export default function Signin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
-    const [image, setImage] = useState("");
+    const [image, setImage] = useState(""); 
 
    const body = {
                  email: email,
@@ -24,7 +24,7 @@ export default function Signin() {
                  image: image,
                  password: password,
                }
-        //fazer o post
+      
         useEffect(() =>{
             if (disabled){
             axios.post(URL_POST,body).then((response)=>{
@@ -45,14 +45,14 @@ export default function Signin() {
     }
 
     return (
-        <Container>
+        <Container disable={disabled}>
             <img src={logo} alt="Logo" ></img>
 
             <input type="email" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)}  disable={disabled} ></input>
             <input type="password" placeholder="Senha" value={password} onChange={e=>setPassword(e.target.value)}  disable={disabled} ></input>
             <input type="text" placeholder="Nome" value={name} onChange={e=>setName(e.target.value)}  disable={disabled} ></input>
             <input type="url" placeholder="Foto" value={image} onChange={e=>setImage(e.target.value)}  disable={disabled} ></input>
-            <button onClick={signin} >{disabled ? "carregando": "Cadastrar"}</button>
+            <button onClick={signin} disabled={disabled}>{disabled ? "carregando": "Cadastrar"}</button>
            <Link to={"/"} > <span>Já tem uma conta? Faça login</span></Link>
         </Container>
     )

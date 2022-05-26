@@ -1,3 +1,15 @@
+import Footer from "./Footer";
+import Header from "./Header";
+import Style from "./styledComponents/Style";
+
 export default function History(){
-    return(<h1>History screen</h1>)
+    return(
+        <>
+        <Header/>
+        <Style>
+            <p>Histórico</p>
+        </Style>
+        <Footer/>
+        </>
+    )
 }

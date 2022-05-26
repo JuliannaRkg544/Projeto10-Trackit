@@ -21,13 +21,13 @@ export default function Login(){
         password: password
     }
 
+    //localStorage.setItem(user)
     useEffect(()=>{
         if(disabled){
-        axios.post(URL_POST,body).then(response => {
-            const {data} = response;
-            setUser(data);
-            console.log("dtat ",data)
-            console.log("sou do contexto",user)
+            axios.post(URL_POST,body).then(response => {
+                const {data} = response;
+                setUser(data);
+                console.log("data ",data)
             navigate("/today")
         }).catch(err=>{console.log("deu erro", err.response); alert(err.response.data.message)})
         }
@@ -42,7 +42,7 @@ export default function Login(){
             <img src={logo}/>
             <input type="email" placeholder="Email" value={email} onChange={e=> setEmail(e.target.value)} disabled={disabled} ></input>
             <input type="password" placeholder="Senha" value={password} onChange={e=>setPassword(e.target.value)} disabled={disabled} ></input>
-            <button onClick={login} > {disabled?<Loading/> :"entrar"}</button>
+            <button onClick={login} > {disabled?<Loading/> :"Entrar"}</button>
             <Link to={"/signin"} ><span>Não tem conta? Cadastre-se</span></Link>
         </Container>
     )

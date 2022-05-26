@@ -5,6 +5,7 @@ import { useContext } from "react";
 
 export default function Header() {
     const { user } = useContext(UserContext)
+    console.log("imagem",user.image)
     return (
         <Style>
             <img src={trackit}/>
@@ -34,7 +35,7 @@ img{
 #profile{
     width: 51px;
     height: 51px;
-    border: solid;
+    border: none;
     border-radius: 98.5px;
     margin:5px;
     
