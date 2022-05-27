@@ -48,7 +48,7 @@ p label{
       margin: 20px;
 }
 .card{
-    min-height: 180px;
+    min-height: 100px;
     min-width: 340px;
     border-radius: 5px;
     margin: 5px 10px;
@@ -60,6 +60,15 @@ p label{
     flex-direction: column;
     margin-bottom: 20px;
 
+}
+.title{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.card img{
+    width: 13px;
+    height: 15px;
 }
 .card-button{
     display: flex;

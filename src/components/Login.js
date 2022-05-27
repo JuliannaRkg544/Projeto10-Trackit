@@ -27,7 +27,6 @@ export default function Login(){
             axios.post(URL_POST,body).then(response => {
                 const {data} = response;
                 setUser(data);
-                console.log("data ",data)
                 localStorage.setItem("foto",data.image)
                 localStorage.setItem("token",data.token)
             navigate("/today")
