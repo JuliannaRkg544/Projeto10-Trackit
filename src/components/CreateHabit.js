@@ -30,11 +30,14 @@ export default function CreateHabit() {
         }).catch((e) => { alert("ocorreu um erro no post do hábito "); console.log(e.response) })
 
     }
+    // verificar repetição no vetor
+    //ajustes finos dos botões
     return (
         <>
             <div className="card" >
                 <input placeholder="nome do hábito" type="text" value={habitName} onChange={e => setHabitName(e.target.value)} ></input>
                 <Weekdays >
+                
                     <p className="weekday" onClick={() => { setHabitDays([...habitDays, 7]) }} >D</p>
                     <p className="weekday" onClick={() => { setHabitDays([...habitDays, 1]) }} >S</p>
                     <p className="weekday" onClick={() => { setHabitDays([...habitDays, 2]) }} >T</p>
@@ -67,6 +70,10 @@ display: flex;
     justify-content: center;
     align-items: center;
 }
-
-
+p {
+    cursor: pointer;
+}
+.weekday:hover{
+   background-color: #d4d4d4;
+}
 `
