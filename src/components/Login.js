@@ -20,8 +20,6 @@ export default function Login(){
         email: email,
         password: password
     }
-
-    //l
     
         if(disabled){
             axios.post(URL_POST,body).then(response => {
@@ -33,22 +31,16 @@ export default function Login(){
         }).catch(err=>{console.log("deu erro", err.response); alert(err.response.data.message)})
         }
 
-    //    useEffect(()=>{
-    //        if(localStorage.getItem("foto")){
-    //      navigate("/today");
-    //  }
-
-    // })            
-
     function login(event){
         event.preventDefault();
         setDisabled(true)
       }
     return (
-        <Container>
+        <Container disabled={disabled}>
             <img src={logo}/>
             <input type="email" placeholder="Email" value={email} onChange={e=> setEmail(e.target.value)} disabled={disabled} ></input>
-            <input type="password" placeholder="Senha" value={password} onChange={e=>setPassword(e.target.value)} disabled={disabled} ></input>
+            <input type="password" placeholder="Senha" value={password} onChange={e=>setPassword(e.target.value)}
+             disabled={disabled} style={disabled? {backgroundColor: "green"}:{backgroundColor: "blue"}}  ></input>
             <button onClick={login} > {disabled?<Loading/> :"Entrar"}</button>
             <Link to={"/signin"} ><span>Não tem conta? Cadastre-se</span></Link>
         </Container>

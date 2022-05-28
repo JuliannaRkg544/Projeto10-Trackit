@@ -59,12 +59,20 @@ p label{
     padding: 10px;
     flex-direction: column;
     margin-bottom: 20px;
+    #cancel{
+        background-color: #fff;
+        color: #52B6FF;
+        border: none;
+    }
 
 }
 .title{
     display: flex;
     width: 100%;
     justify-content: space-between;
+}
+.title img{
+    cursor: pointer;
 }
 .card img{
     width: 13px;

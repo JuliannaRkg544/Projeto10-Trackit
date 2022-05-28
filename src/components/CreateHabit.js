@@ -4,14 +4,16 @@ import HabitsContext from "./Context/HabitsContext"
 
 import axios from "axios"
 import { useEffect, useState, useContext } from "react"
+import { ThemeProvider } from "styled-components"
 
 export default function CreateHabit() {
     const token = localStorage.getItem("token")
 
     const [habitDays, setHabitDays] = useState([]);
     const [habitName, setHabitName] = useState("")
-    const {habits, setHabits, addHabit, setAddHabbit} = useContext(HabitsContext)
-    
+    const [marked, setMarked] = useState(false)
+    const { habits, setHabits, addHabit, setAddHabbit } = useContext(HabitsContext)
+
     const body = {
         name: habitName,
         days: habitDays
@@ -24,30 +26,46 @@ export default function CreateHabit() {
                 Authorization: `Bearer ${token}`,
             },
         };
-        axios.post(URL_POST, body, config).then((response) => { 
+        axios.post(URL_POST, body, config).then((response) => {
             console.log("todos os habitos ", response.data)
             setAddHabbit(false)
         }).catch((e) => { alert("ocorreu um erro no post do hábito "); console.log(e.response) })
 
     }
-    // verificar repetição no vetor
-    //ajustes finos dos botões
+
+    const weekDays = [
+        { letter: 'D', number: 7 },
+        { letter: 'S', number: 1 },
+        { letter: 'T', number: 2 },
+        { letter: 'Q', number: 3 },
+        { letter: 'Q', number: 4 },
+        { letter: 'S', number: 5 },
+        { letter: 'S', number: 6 }
+    ];
+
+    function mark(day) {
+        setHabitDays([...habitDays, day])
+        if (habitDays.includes(day)) {
+            let newHabitDays = habitDays.filter((habDay) => habDay !== day)
+            setHabitDays(newHabitDays)
+        }
+
+    }
     return (
         <>
             <div className="card" >
                 <input placeholder="nome do hábito" type="text" value={habitName} onChange={e => setHabitName(e.target.value)} ></input>
-                <Weekdays >
-                
-                    <p className="weekday" onClick={() => { setHabitDays([...habitDays, 7]) }} >D</p>
-                    <p className="weekday" onClick={() => { setHabitDays([...habitDays, 1]) }} >S</p>
-                    <p className="weekday" onClick={() => { setHabitDays([...habitDays, 2]) }} >T</p>
-                    <p className="weekday" onClick={() => { setHabitDays([...habitDays, 3]) }} >Q</p>
-                    <p className="weekday" onClick={() => { setHabitDays([...habitDays, 4]) }} >Q</p>
-                    <p className="weekday" onClick={() => { setHabitDays([...habitDays, 5]) }} >S</p>
-                    <p className="weekday" onClick={() => { setHabitDays([...habitDays, 6]) }} >S</p>
-                </Weekdays>
+                <Weekdays > {weekDays.map((day, index) => {
+                    return <div className="weekday" onClick={() => mark(day.number)} >
+                        {console.log(habitDays)}
+                        <ThemeProvider theme={habitDays.includes(day.number) ? invertedColor : color} key={index}>
+                            <Theme>{day.letter}</Theme>
+                        </ThemeProvider>
+                    </div>
+
+                })} </Weekdays>
                 <div className="card-button" >
-                    <button onClick={() => setAddHabbit(false)}>cancelar</button>
+                    <button onClick={() => setAddHabbit(false)} id="cancel" >cancelar</button>
                     <button onClick={postHabit} > Salvar</button>
                 </div>
             </div>
@@ -57,6 +75,7 @@ export default function CreateHabit() {
 
 const Weekdays = styled.div` 
 display: flex;
+
 
 .weekday{
     width: 30px;
@@ -69,11 +88,30 @@ display: flex;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-p {
     cursor: pointer;
+    
 }
-.weekday:hover{
-   background-color: #d4d4d4;
-}
+
+
 `
+const Theme = styled.div`
+color: ${props => props.theme.dfColor};
+background-color: ${props => props.theme.dfBack};
+display: flex;
+justify-content: center;
+align-items: center;
+width: 29px;
+ height: 28px;
+    
+
+`
+
+const color = {
+    dfColor: '#D4D4D4',
+    dfBack: '#FFFFFF'
+};
+
+const invertedColor = {
+    dfColor: '#FFFFFF',
+    dfBack: '#D4D4D4'
+};

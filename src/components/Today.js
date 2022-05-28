@@ -21,6 +21,7 @@ export default function Today() {
     const token = localStorage.getItem("token")
     const habitsNames = localStorage.getItem("habitsNames")
     const habitsNameArr = JSON.parse(habitsNames);
+    const [marked, setMarked]  = useState(false)
     
 
     useEffect(()=>{
@@ -35,6 +36,12 @@ export default function Today() {
     }).catch(err=>{console.log("vish..", err.response)})
     },[])
 
+    function checkHabit(id){
+        setMarked(!marked)
+        console.log(id)
+
+    }
+
     if (todayHabits.length>0){
         return(
             <>
@@ -46,8 +53,14 @@ export default function Today() {
                 </div>
                     { todayHabits.map((hab,index)=>{ return( 
                         <div className="card" key={index} style={{flexDirection:"row", justifyContent:"space-between"}} >
-                        <div className="text" > <p> {hab.name} </p> <span>Sequência atual: 4 dias</span> </div>
-                    <CheckMark> <img src={check}/> </CheckMark>
+                        <div className="text" style={{display:"flex" ,flexDirection:"column"}} > 
+                        <p> {hab.name} </p>
+                         <span>Sequência Atual: {hab.currentSequence}</span> 
+                         <span>Seu Recorde: {hab.highestSequence}</span> 
+                         </div>
+                    <CheckMark style={marked?{backgroundColor: "#8FC549"}:{backgroundColor: "#EBEBEB" }} 
+                    onClick={()=>checkHabit(hab.id)} >
+                         <img src={check}/> </CheckMark>
                 </div>)
             })} 
 
@@ -60,7 +73,7 @@ export default function Today() {
 const CheckMark = styled.div`
   width:69px;
   height:69px;
-  background-color:#8FC549;
+ 
   padding:15px;
   display: flex;
   justify-content: center;
