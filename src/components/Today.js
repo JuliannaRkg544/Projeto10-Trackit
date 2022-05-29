@@ -12,16 +12,20 @@ import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br"
+import { ThemeProvider } from "styled-components";
 
 
 export default function Today() {
+    const [todayHabits, setTodayHabits] = useState([])
+    const [selected, setSelected] = useState(false)
+   
+
     const { user } = useContext(UserContext)
     const {habits, setHabits, addHabit, setAddHabbit} = useContext(HabitsContext)
-    const [todayHabits, setTodayHabits] = useState([])
+
     const token = localStorage.getItem("token")
-    const habitsNames = localStorage.getItem("habitsNames")
-    const habitsNameArr = JSON.parse(habitsNames);
-    const [marked, setMarked]  = useState(false)
+    // const habitsNames = localStorage.getItem("habitsNames")
+    // const habitsNameArr = JSON.parse(habitsNames);
     
 
     useEffect(()=>{
@@ -34,11 +38,29 @@ export default function Today() {
     axios.get(URL_GET,config).then(response =>{setTodayHabits(response.data)
     console.log("today habits ",response.data)
     }).catch(err=>{console.log("vish..", err.response)})
-    },[])
+    },[selected])
 
-    function checkHabit(id){
-        setMarked(!marked)
-        console.log(id)
+    function toglleHabit(id,done,index){
+        // setMarked(!(todayHabits[index].done))
+        // console.log(todayHabits[index].done)
+        //event.preventDefault();
+        
+        todayHabits[index].done = !(todayHabits[index].done);
+        const action = done ? "uncheck" : "check";
+        console.log("done ", done, " id ", id)
+
+        const URL_POST = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/${action}`
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+        
+        axios.post(URL_POST,{}, config).then(() => {
+            setSelected(!selected)
+            console.log("foi ",done)}
+        ).catch(err=>{console.log("vish..", err.response); setSelected(false) })
 
     }
 
@@ -58,9 +80,11 @@ export default function Today() {
                          <span>Sequência Atual: {hab.currentSequence}</span> 
                          <span>Seu Recorde: {hab.highestSequence}</span> 
                          </div>
-                    <CheckMark style={marked?{backgroundColor: "#8FC549"}:{backgroundColor: "#EBEBEB" }} 
-                    onClick={()=>checkHabit(hab.id)} >
+                         <ThemeProvider theme={hab.done? color :invertedColor}>
+                         <CheckMark  onClick={()=>toglleHabit(hab.id, hab.done,index)}>
                          <img src={check}/> </CheckMark>
+                         </ThemeProvider>
+                    
                 </div>)
             })} 
 
@@ -68,7 +92,7 @@ export default function Today() {
             <Footer />
         </>
         )
-    } else return<>  <Header /> <Footer /></> 
+    } else return<>  <Header/><Footer/> </> 
 }
 const CheckMark = styled.div`
   width:69px;
@@ -79,10 +103,22 @@ const CheckMark = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 5px;
+  background-color: ${props => props.theme.dfColor};
+  cursor: pointer;
 
   img{
       width: 35px;
       height: 28px;
   }
+
 `
+const color = {
+    dfColor: '#8FC549',
+};
+
+const invertedColor = {
+    dfColor: '#EBEBEB',
+};
+
+
 

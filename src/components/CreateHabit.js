@@ -5,13 +5,15 @@ import HabitsContext from "./Context/HabitsContext"
 import axios from "axios"
 import { useEffect, useState, useContext } from "react"
 import { ThemeProvider } from "styled-components"
+import Loading from "./Loading"
 
 export default function CreateHabit() {
     const token = localStorage.getItem("token")
 
     const [habitDays, setHabitDays] = useState([]);
     const [habitName, setHabitName] = useState("")
-    const [marked, setMarked] = useState(false)
+    const [loading, setLoadind] = useState(false)
+
     const { habits, setHabits, addHabit, setAddHabbit } = useContext(HabitsContext)
 
     const body = {
@@ -20,6 +22,7 @@ export default function CreateHabit() {
     }
 
     function postHabit() {
+        setLoadind(true)
         const URL_POST = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
         const config = {
             headers: {
@@ -29,12 +32,11 @@ export default function CreateHabit() {
         axios.post(URL_POST, body, config).then((response) => {
             console.log("todos os habitos ", response.data)
             setAddHabbit(false)
-        }).catch((e) => { alert("ocorreu um erro no post do hábito "); console.log(e.response) })
-
+        }).catch((e) => { alert("ocorreu um erro no post do hábito "); console.log(e.response);  setLoadind(false)})
     }
 
     const weekDays = [
-        { letter: 'D', number: 7 },
+        { letter: 'D', number: 0 },
         { letter: 'S', number: 1 },
         { letter: 'T', number: 2 },
         { letter: 'Q', number: 3 },
@@ -56,9 +58,8 @@ export default function CreateHabit() {
             <div className="card" >
                 <input placeholder="nome do hábito" type="text" value={habitName} onChange={e => setHabitName(e.target.value)} ></input>
                 <Weekdays > {weekDays.map((day, index) => {
-                    return <div className="weekday" onClick={() => mark(day.number)} >
-                        {console.log(habitDays)}
-                        <ThemeProvider theme={habitDays.includes(day.number) ? invertedColor : color} key={index}>
+                    return <div className="weekday" onClick={() => mark(day.number)}  key={index}>
+                        <ThemeProvider theme={habitDays.includes(day.number) ? invertedColor : color}>
                             <Theme>{day.letter}</Theme>
                         </ThemeProvider>
                     </div>
@@ -66,7 +67,7 @@ export default function CreateHabit() {
                 })} </Weekdays>
                 <div className="card-button" >
                     <button onClick={() => setAddHabbit(false)} id="cancel" >cancelar</button>
-                    <button onClick={postHabit} > Salvar</button>
+                    <button onClick={postHabit}> {loading? <Loading/>:"Salvar"} </button>
                 </div>
             </div>
         </>

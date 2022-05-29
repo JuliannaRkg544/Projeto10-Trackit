@@ -37,7 +37,7 @@ export default function Habits() {
 
     function renderHabits() {
         const weekDays = [
-            { letter: 'D', number: 7 },
+            { letter: 'D', number: 0 },
             { letter: 'S', number: 1 },
             { letter: 'T', number: 2 },
             { letter: 'Q', number: 3 },
@@ -45,7 +45,7 @@ export default function Habits() {
             { letter: 'S', number: 5 },
             { letter: 'S', number: 6 }
         ];
-        console.log(habits)
+        
         return (
             habits.map((habit, index) => {
                 return <div className="card" key={index} >

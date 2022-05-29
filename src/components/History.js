@@ -8,6 +8,7 @@ export default function History(){
         <Header/>
         <Style>
             <p>Histórico</p>
+            <span>Em breve você poderá ver o histórico dos seus hábitos aqui!</span>
         </Style>
         <Footer/>
         </>
