@@ -1,11 +1,14 @@
 import styled from "styled-components"
 
 import HabitsContext from "./Context/HabitsContext"
+import Loading from "./Loading"
 
 import axios from "axios"
 import { useEffect, useState, useContext } from "react"
 import { ThemeProvider } from "styled-components"
-import Loading from "./Loading"
+
+
+
 
 export default function CreateHabit() {
     const token = localStorage.getItem("token")

@@ -1,11 +1,30 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 
-export default function Footer(){
+import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
+export default function Footer({percentage}){
+
+    
+
     return (
         <Style>
            <Link to={"/habits"} > <button>Hábitos</button></Link>
-           <Link to={"/today"} ><p>Hoje</p> </Link> 
+           <Link to={"/today"} >
+               <div >
+               <CircularProgressbar
+                    value={percentage}
+                    text={"Hoje"}
+                    styles={buildStyles({
+                        textColor: "#FFF",
+                        trailColor: "#52b6ff",
+                        pathColor: "#FFF",
+                       
+                    })}
+                    />
+               </div>
+            </Link> 
            <Link to={"/history"} >  <button>Histórico</button></Link>
         </Style>
     )
@@ -30,9 +49,10 @@ button{
     border: none;
     background-color: #fff;
     cursor: pointer;
+    
 }
 
-p{
+div{
   width: 91px ;
   height: 91px;
   border-radius: 50%;

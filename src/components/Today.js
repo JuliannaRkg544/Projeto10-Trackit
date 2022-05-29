@@ -18,6 +18,7 @@ import { ThemeProvider } from "styled-components";
 export default function Today() {
     const [todayHabits, setTodayHabits] = useState([])
     const [selected, setSelected] = useState(false)
+    let percecentHabitsDone ;
    
 
     const { user } = useContext(UserContext)
@@ -70,7 +71,7 @@ export default function Today() {
        
        todayHabits.map((hab)=> {if(hab.done){contPercent++} console.log("porcentagem ",contPercent) })
        
-       let percecentHabitsDone =  parseInt((contPercent/length)*100);
+       percecentHabitsDone =  parseInt((contPercent/length)*100);
        if(contPercent === 0){
            return<p>Nenhum hábito concluído ainda</p>
        }
@@ -106,7 +107,7 @@ export default function Today() {
             })} 
 
             </Style>
-            <Footer />
+            <Footer percentage ={percecentHabitsDone} />
         </>
         )
     } else return<>  <Header/><Footer/> </> 
