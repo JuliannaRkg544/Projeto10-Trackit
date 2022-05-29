@@ -64,6 +64,22 @@ export default function Today() {
 
     }
 
+    function renderPercent(){
+       let length= todayHabits.length
+       let contPercent = 0
+       
+       todayHabits.map((hab)=> {if(hab.done){contPercent++} console.log("porcentagem ",contPercent) })
+       
+       let percecentHabitsDone =  parseInt((contPercent/length)*100);
+       if(contPercent === 0){
+           return<p>Nenhum hábito concluído ainda</p>
+       }
+       else {
+           return <p> {percecentHabitsDone}% dos hábitos concluídos </p>
+       }
+
+    }
+
     if (todayHabits.length>0){
         return(
             <>
@@ -74,8 +90,9 @@ export default function Today() {
                     <p> {dayjs().locale('PT-BR').format('dddd, DD/MM')} </p>
                 </div>
                     { todayHabits.map((hab,index)=>{ return( 
-                        <div className="card" key={index} style={{flexDirection:"row", justifyContent:"space-between"}} >
-                        <div className="text" style={{display:"flex" ,flexDirection:"column"}} > 
+                        <div className="card" key={index} style={{flexD968irection:"row", justifyContent:"space-between"}} >
+                        <div className="text" style={{display:"flex" ,flexDirection:"column"}}>
+                         {renderPercent()}
                         <p> {hab.name} </p>
                          <span>Sequência Atual: {hab.currentSequence}</span> 
                          <span>Seu Recorde: {hab.highestSequence}</span> 
