@@ -73,10 +73,10 @@ export default function Today() {
        
        percecentHabitsDone =  parseInt((contPercent/length)*100);
        if(contPercent === 0){
-           return<p>Nenhum hábito concluído ainda</p>
+           return<span >Nenhum hábito concluído ainda</span>
        }
        else {
-           return <p> {percecentHabitsDone}% dos hábitos concluídos </p>
+           return <span style={{color:"#8fc549"}} > {percecentHabitsDone}% dos hábitos concluídos </span>
        }
 
     }
@@ -89,11 +89,11 @@ export default function Today() {
                 
                 <div className="top">
                     <p> {dayjs().locale('PT-BR').format('dddd, DD/MM')} </p>
+                    {renderPercent()}
                 </div>
                     { todayHabits.map((hab,index)=>{ return( 
-                        <div className="card" key={index} style={{flexD968irection:"row", justifyContent:"space-between"}} >
+                        <div className="card" key={index} style={{flexDirection:"row", justifyContent:"space-between"}} >
                         <div className="text" style={{display:"flex" ,flexDirection:"column"}}>
-                         {renderPercent()}
                         <p> {hab.name} </p>
                          <span>Sequência Atual: {hab.currentSequence}</span> 
                          <span>Seu Recorde: {hab.highestSequence}</span> 
@@ -110,7 +110,7 @@ export default function Today() {
             <Footer percentage ={percecentHabitsDone} />
         </>
         )
-    } else return<>  <Header/><Footer/> </> 
+    } else return<>  <Header/> <Style> <span>Cadastre um Hábito para começar</span> </Style> <Footer/> </> 
 }
 const CheckMark = styled.div`
   width:69px;

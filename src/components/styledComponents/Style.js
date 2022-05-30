@@ -23,8 +23,13 @@ p label{
 .top {
     display: flex;
   justify-content:space-between;
-  align-items: center;
+  align-items: flex-start;
   margin: 0px 10px;
+  flex-direction: column;
+}
+span{
+    font-size: 18px;
+    color:#666666 ;
 }
 
 .top span{
@@ -32,9 +37,6 @@ p label{
     font-size: 18px;
     margin-top: 5px;
 }
-.top p.green {
-    color: #8fc549;
-  }
 
 .top button{
       width: 40px ;
@@ -54,7 +56,6 @@ p label{
     margin: 5px 10px;
     display: flex;
     justify-content: space-around;
-    //align-items: flex-end;
     background-color: #fff;
     padding: 10px;
     flex-direction: column;
@@ -107,11 +108,15 @@ p label{
   color: #dbdbdb;
   font-size: 20px ;
 }
-
+.card span{
+    font-size: 12.98px;
+    color: #666666
+}
   
 .card p{
     color: #666666;
-    font-size: 12.98px;
+    font-size: 19.98px;
+    margin: 5px 0;
 }
 .card .title{
     color: #666666;

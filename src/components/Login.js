@@ -17,6 +17,13 @@ export default function Login() {
     const [email, setEmail] = useState("")
     const [disabled, setDisabled] = useState(false) //disabilita oq?
 
+   //BONUS DO LOCALSTORAGE
+    let foto = localStorage.getItem("foto")
+    let token =localStorage.getItem("token")
+    if (foto!=undefined || token!=undefined){
+      navigate("/today")
+    }
+
     const URL_POST = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
 
     const body = {
@@ -36,6 +43,8 @@ export default function Login() {
             navigate("/today")
         }).catch(err => { console.log("deu erro", err.response); alert(err.response.data.message); setDisabled(false) })
     }
+
+   
     return (
         <Container>
             <img src={logo} />
